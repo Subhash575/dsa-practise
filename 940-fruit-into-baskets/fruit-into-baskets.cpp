@@ -9,18 +9,14 @@ public:
         while (j < n) {
             mpp[arr[j]] += 1;
             if (mpp.size() > 2) {
-                while (mpp.size() > 2) {
-                    mpp[arr[i]] -= 1;
-                    if (mpp[arr[i]] == 0) {
-                        mpp.erase(arr[i]);
-                        i += 1;
-                        break;
-                    }
-                    i += 1;
-                }
+                mpp[arr[i]] -= 1;
+                if (mpp[arr[i]] == 0)
+                    mpp.erase(arr[i]);
+                i += 1;
             }
 
-            maxLen = max(maxLen, j - i + 1);
+            if (mpp.size() <= 2)
+                maxLen = max(maxLen, j - i + 1);
             j++;
         }
 
