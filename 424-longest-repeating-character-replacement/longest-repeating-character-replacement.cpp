@@ -11,12 +11,15 @@ public:
             maxFreq = max(maxFreq, hash[s[j] - 'A']);
 
             // Invalid updates
-            while((j - i + 1) - maxFreq > k) {
+            if((j - i + 1) - maxFreq > k) {
                 hash[s[i] - 'A'] -= 1;
-                maxFreq = 0;
-                for (int k = 0; k < 26; k++) {
-                    maxFreq = max(maxFreq, hash[k]);
-                }
+                
+                // Not need to degrade the maxFreq it only adding O(26) T.C
+                // Because of scanning.
+                // maxFreq = 0;
+                // for (int k = 0; k < 26; k++) {
+                //     maxFreq = max(maxFreq, hash[k]);
+                // }
                 i += 1;
             }
 
