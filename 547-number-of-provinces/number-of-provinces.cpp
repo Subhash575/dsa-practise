@@ -19,24 +19,24 @@ public:
 
         for(int i = 0; i < n; i++){
             if(!vis[i]){
-                q.push(i);
-                vis[0] = 1;
                 res += 1;
-                while(!q.empty()){
-                    int node = q.front();
-                    q.pop();
-                    for(int nbr: graph[node]){
-                        if(!vis[nbr]){
-                            q.push(nbr);
-                            vis[nbr] = 1;
-                        }
-                    }
-                }
+                dfsTraversal(graph, vis, i);
             }
 
         }
 
         return res;
         
+    }
+
+    void dfsTraversal(vector<vector<int>>&graph, vector<int>&vis, int node){
+        vis[node] = 1;
+        for(int nbr : graph[node]){
+            if(!vis[nbr]){
+                dfsTraversal(graph, vis, nbr);
+            }
+        }
+
+        return;
     }
 };
