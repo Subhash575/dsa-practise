@@ -1,31 +1,41 @@
 class Solution {
 public:
-
-    void traversal(int node, vector<vector<int>>&graph, vector<int>&vis){
-        vis[node] = 1;
-
-        for(int nbr = 0; nbr < graph.size(); nbr++){
-            if(graph[node][nbr] == 1 && vis[nbr] == 0){
-                traversal(nbr, graph, vis);
-            }
-        }
-    }
-
     int findCircleNum(vector<vector<int>>& isConnected) {
 
-        // Using DFS and adjMatrix.
         int n = isConnected.size();
-        vector<int>vis(n, 0);
+        vector<vector<int>>graph(n);
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(i != j && isConnected[i][j]){
+                  graph[i].push_back(j);
+                  graph[j].push_back(i);
+                }
+            }
+        }
+
         int res = 0;
+        vector<int>vis(n);
+        queue<int>q;
 
         for(int i = 0; i < n; i++){
             if(!vis[i]){
-                res+=1;
-                int node = i;
-                traversal(node, isConnected, vis);
+                q.push(i);
+                vis[0] = 1;
+                res += 1;
+                while(!q.empty()){
+                    int node = q.front();
+                    q.pop();
+                    for(int nbr: graph[node]){
+                        if(!vis[nbr]){
+                            q.push(nbr);
+                            vis[nbr] = 1;
+                        }
+                    }
+                }
             }
+
         }
-        
+
         return res;
         
     }
