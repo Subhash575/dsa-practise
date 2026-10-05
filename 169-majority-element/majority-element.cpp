@@ -1,23 +1,20 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int n = nums.size();
-        map<int, int>mpp;
-        int res = 0;
-        int cnt = 0;
+        // optimize solution:- Moore Voting Algorithm
+        int count = 0;
+        int candidate = 0; //random value assign
 
-        for(int i = 0; i < n; i++){
-            mpp[nums[i]]+=1;
-        }
-
-        for(auto & it: mpp){
-            if(cnt < it.second){
-                res = it.first;
-                cnt = it.second;
+        for(int val : nums){
+            if(count == 0){
+                candidate = val;
             }
+
+            if(val == candidate) count++;
+            else count--;
         }
 
-        return res;
+        return candidate;
         
     }
 };
