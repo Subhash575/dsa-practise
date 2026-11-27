@@ -1,23 +1,25 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        // optimize approach to solve anagram
-        int n = s.size();
-        int m = t.size();
+        int n1 = s.size();
+        int n2 = t.size();
+        vector<int>freq1(26);
+        vector<int>freq2(26);
 
-        if(n != m) return false;
-
-        vector<int>count(26, 0);
-
-        for(int i = 0; i < n; i++){
-            count[s[i] - 'a']++;
-            count[t[i] - 'a']--;
+        for(int i = 0; i < n1; i++){
+            freq1[s[i]-'a']++;
         }
 
-        for(int it : count){
-            if( it != 0) return false;
+        for(int i = 0; i < n2; i++){
+            freq2[t[i]-'a']++;
         }
 
+        for(int i = 0; i < 26; i++){
+            if(freq1[i] != freq2[i]) return false;
+        }
         return true;
+
+        
+        
     }
 };
